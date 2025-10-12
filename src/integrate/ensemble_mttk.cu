@@ -569,32 +569,38 @@ void Ensemble_MTTK::propagate_box_diagonal()
 {
   // TODO: fix point ?
   double expfac;
-  expfac = exp(dt4 * omega_dot[0][0]);
+  expfac = exp(dt2 * omega_dot[0][0]);
   h[0][0] *= expfac;
-  h[0][0] += dt2 * (omega_dot[0][1] * h[1][0] + omega_dot[0][2] * h[2][0]);
-  h[0][0] *= expfac;
-  if (need_scale[1][0])
+  if (need_scale[1][0]) {    
+    expfac = exp(dt2 * omega_dot[1][0]);
     h[1][0] *= expfac;
-  if (need_scale[2][0])
+  }
+  if (need_scale[2][0]) {
+    expfac = exp(dt2 * omega_dot[2][0]);
     h[2][0] *= expfac;
+  }
 
-  expfac = exp(dt4 * omega_dot[1][1]);
+  expfac = exp(dt2 * omega_dot[1][1]);
   h[1][1] *= expfac;
-  h[1][1] += dt2 * (omega_dot[1][0] * h[0][1] + omega_dot[1][2] * h[2][1]);
-  h[1][1] *= expfac;
-  if (need_scale[0][1])
+  if (need_scale[0][1]) {
+    expfac = exp(dt2 * omega_dot[0][1]);
     h[0][1] *= expfac;
-  if (need_scale[2][1])
+  }
+  if (need_scale[2][1]) {
+    expfac = exp(dt2 * omega_dot[2][1]);
     h[2][1] *= expfac;
+  }
 
-  expfac = exp(dt4 * omega_dot[2][2]);
+  expfac = exp(dt2 * omega_dot[2][2]);
   h[2][2] *= expfac;
-  h[2][2] += dt2 * (omega_dot[2][0] * h[0][2] + omega_dot[2][1] * h[1][2]);
-  h[2][2] *= expfac;
-  if (need_scale[0][2])
+  if (need_scale[0][2]) {
+    expfac = exp(dt2 * omega_dot[0][2]);
     h[0][2] *= expfac;
-  if (need_scale[1][2])
+  }
+  if (need_scale[1][2]) {
+    expfac = exp(dt2 * omega_dot[1][2]);
     h[1][2] *= expfac;
+  }
 }
 
 void Ensemble_MTTK::find_thermo()
